@@ -1,4 +1,4 @@
-name: Build and test latest supported Perls
+name: Build Perl 5.14 Image
 
 on:
   push:
@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        variant: [ 'main', 'slim', 'main,threaded', 'slim,threaded' ]
-        perl-version: [ '5.032.001', '5.030.003' ]
+        variant: [ 'main']
+        perl-version: [ '5.014.004' ]
     steps:
       - uses: actions/checkout@master
       - name: Clone docker-library/official-images (for testing)
