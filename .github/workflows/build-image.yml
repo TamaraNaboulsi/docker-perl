@@ -23,11 +23,11 @@ jobs:
       - name: Build image
         run: |
           docker version
-          docker build --no-cache -t perl:${{ matrix.perl-version }} ${{ matrix.perl-version }}-${{ matrix.variant }}-buster
-#       - name: Inspect image creation and tag time
-#         run: |
-#           docker image inspect --format \'{{.Created}}\' perl:${{ matrix.perl-version }}
-#           docker image inspect --format \'{{.Metadata.LastTagTime}}\' perl:${{ matrix.perl-version }}
+          docker build --no-cache -t perl-${{ matrix.perl-version }} ${{ matrix.perl-version }}-${{ matrix.variant }}-buster
+      - name: Inspect image creation and tag time
+        run: |
+          docker image inspect --format \'{{.Created}}\' perl-${{ matrix.perl-version }}
+          docker image inspect --format \'{{.Metadata.LastTagTime}}\' perl-${{ matrix.perl-version }}
 #       - name: Run tests
 #         run: |
 #           ./official-images/test/run.sh perl:${{ matrix.perl-version }}
@@ -37,4 +37,4 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
       - name: Push
-        run: docker push test-repo:perl:${{ matrix.perl-version }}
+        run: docker push test-repo:perl-${{ matrix.perl-version }}
