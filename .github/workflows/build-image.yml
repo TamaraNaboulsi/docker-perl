@@ -28,7 +28,7 @@ jobs:
       - name: Build image
         run: |
           docker version
-          docker build --no-cache -t test-repo:perl-${{ matrix.perl-version }} ${{ matrix.perl-version }}-${{ matrix.variant }}-buster
+          docker build --no-cache -t ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }} ${{ matrix.perl-version }}-${{ matrix.variant }}-buster
 #       - name: Inspect image creation and tag time
 #         run: |
 #           docker image inspect --format \'{{.Created}}\' test-repo:perl-${{ matrix.perl-version }}
