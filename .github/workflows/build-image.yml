@@ -37,5 +37,5 @@ jobs:
 #         run: |
 #           ./official-images/test/run.sh perl:${{ matrix.perl-version }}
     
-#       - name: Push
-#         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }}
+      - name: Push image
+        run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }}
