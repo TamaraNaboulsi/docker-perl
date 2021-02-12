@@ -1,12 +1,6 @@
-name: Build Perl 5.14 Image
+name: Build and Push Perl Images
 
-on:
-  push:
-    branches:
-      - '**'
-    tags-ignore:
-      - '*'
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   build-image:
@@ -25,17 +19,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Build image
+      - name: Build perl ${{ matrix.perl-version }} image
         run: |
           docker version
           docker build --no-cache -t ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }} ${{ matrix.perl-version }}-${{ matrix.variant }}-buster
-#       - name: Inspect image creation and tag time
-#         run: |
-#           docker image inspect --format \'{{.Created}}\' test-repo:perl-${{ matrix.perl-version }}
-#           docker image inspect --format \'{{.Metadata.LastTagTime}}\' test-repo:perl-${{ matrix.perl-version }}
-#       - name: Run tests
-#         run: |
-#           ./official-images/test/run.sh perl:${{ matrix.perl-version }}
-    
+      - name: Inspect image creation and tag time
+        run: |
+          docker image inspect --format \'{{.Created}}\' ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }}
+          docker image inspect --format \'{{.Metadata.LastTagTime}}\' ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }}
+      - name: Run tests
+        run: |
+          ./official-images/test/run.sh ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }}
       - name: Push image
         run: docker push ${{ secrets.DOCKER_HUB_USERNAME }}/test-repo:perl-${{ matrix.perl-version }}
