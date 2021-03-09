@@ -30,7 +30,9 @@ releases:
     sha256:  eece8c2b0d491bf6f746bd1f4f1bb7ce26f6b98e91c54690c617d7af38964745
     extra_flags: "-A ccflags=-fwrapv"
     test_parallel: no
-    debian_release: jessie
+    debian_release:
+      - jessie
+      - buster
 
   - version: 5.16.3
     sha256:  bb7bc735e6813b177dcfccd480defcde7eddefa173b5967eac11babd1bfa98e8
